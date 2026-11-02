@@ -42,7 +42,7 @@ ENV NEXT_PUBLIC_FORMS_URL=$NEXT_PUBLIC_FORMS_URL
 ARG NEXT_PUBLIC_SIGNUP_URL=
 ENV NEXT_PUBLIC_SIGNUP_URL=$NEXT_PUBLIC_SIGNUP_URL
 COPY . .
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+RUN \
     pnpm install --frozen-lockfile
 RUN pnpm build:packages
 # Readable stack traces in error tracking (opt-in; unset = no maps). `1`

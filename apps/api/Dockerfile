@@ -27,7 +27,7 @@ RUN corepack enable
 FROM base AS build
 WORKDIR /repo
 COPY . .
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+RUN \
     pnpm install --frozen-lockfile
 # Build the workspace packages the API imports (@slate/engine, @slate/db, …) to
 # their dist/ outputs, then produce a self-contained production bundle.
