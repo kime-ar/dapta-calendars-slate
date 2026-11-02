@@ -60,12 +60,7 @@ RUN pnpm --filter @slate/web build
 # `SOURCEMAPS_RELEASE` names the release for the script (`$SOURCEMAPS_RELEASE`);
 # a new value also makes BuildKit run this step again rather than reuse it.
 ARG SOURCEMAPS_RELEASE=
-RUN --mount=type=secret,id=sourcemaps_upload \
-    if [ -s /run/secrets/sourcemaps_upload ]; then \
-      sh /run/secrets/sourcemaps_upload /repo/apps/web/.next/static \
-        || echo "sourcemaps_upload failed: this image's browser stacks will not be readable"; \
-    fi; \
-    find /repo/apps/web/.next/static -name '*.map' -delete
+RUN find /repo/apps/web/.next/static -name '*.map' -delete
 # The server's own maps (never served): the standalone output leaves them
 # out, so with maps on they are copied beside the chunks it kept, and the web
 # server's errors name source lines (instrumentation.ts turns Node's source
